@@ -59,10 +59,29 @@ void ASimModeBase::initializeSettings()
             enable_rpc = settings.setBool("RpcEnabled", true);
             settings.setString("LocalHostIp", "127.0.0.1");
             
-            Settings rosflight_child;
+            /*Settings rosflight_child;
             rosflight_child.setInt("RemoteControlID", 0);
-            settings.setChild("RosFlight", rosflight_child);
-            fpv_vehicle_name = "RosFlight";
+            settings.setChild("RosFlight", rosflight_child);*/
+            fpv_vehicle_name = "Pixhawk";
+            Settings pixhawk_child;
+            pixhawk_child.setString("LogViewerHostIp", "127.0.0.1");
+            pixhawk_child.setInt("LogViewerPort", 14388);
+            pixhawk_child.setInt("OffboardCompID", 1);
+            pixhawk_child.setInt("OffboardSysID", 134);
+            pixhawk_child.setString("QgcHostIp", "127.0.0.1");
+            pixhawk_child.setInt("QgcPort", 14550);
+            pixhawk_child.setInt("SerialBaudRate", 115200);
+            pixhawk_child.setString("SerialPort", "*");
+            pixhawk_child.setInt("SimCompID", 42);
+            pixhawk_child.setInt("SimSysID", 142);
+            pixhawk_child.setString("SitlIp", "127.0.0.1");
+            pixhawk_child.setInt("SitlPort", 14556);
+            pixhawk_child.setString("UdpIp", "127.0.0.1");
+            pixhawk_child.setInt("UdpPort", 14560);
+            pixhawk_child.setBool("UseSerial", false);
+            pixhawk_child.setInt("VehicleCompID", 1);
+            pixhawk_child.setInt("VehicleSysID", 13);
+            settings.setChild("Pixhawk", pixhawk_child);
             //settings.saveJSonFile(settings_filename);
             std::string msg = "Settings file " + settings_filename + " is created.";
             UAirBlueprintLib::LogMessage(FString(msg.c_str()), TEXT("See docs at https://git.io/v9mYY"), LogDebugLevel::Informational);
