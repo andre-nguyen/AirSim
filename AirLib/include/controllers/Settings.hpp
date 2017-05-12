@@ -34,7 +34,7 @@ namespace msr {
 
             static Settings& loadJSonFile(std::string fileName)
             {
-                std::string path = getFullPath(fileName);
+/*                std::string path = getFullPath(fileName);
                 settings_.file_ = fileName;
 
                 settings_.load_success_ = false;
@@ -45,7 +45,7 @@ namespace msr {
                     s >> settings_.doc_;
                     settings_.load_success_ = true;
                 }
-
+*/
                 return singleton();
             }
             bool isLoadSuccess()

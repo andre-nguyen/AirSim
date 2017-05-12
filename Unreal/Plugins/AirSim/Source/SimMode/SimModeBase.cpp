@@ -38,9 +38,10 @@ void ASimModeBase::initializeSettings()
     //load settings file if found
     typedef msr::airlib::Settings Settings;
     try {
-        Settings& settings = Settings::loadJSonFile("settings.json");
+        //Settings& settings = Settings::loadJSonFile("settings.json");
+        Settings& settings = Settings::singleton();
         auto settings_filename = Settings::singleton().getFileName();
-        if (settings.isLoadSuccess()) {
+        /*if (settings.isLoadSuccess()) {
             std::string msg = "Loaded settings from " + settings_filename;
             UAirBlueprintLib::LogMessage(FString(msg.c_str()), TEXT(""), LogDebugLevel::Informational);
 
@@ -53,18 +54,19 @@ void ASimModeBase::initializeSettings()
             UAirBlueprintLib::LogMessage("Vehicle name: ", fpv_vehicle_name.c_str(), LogDebugLevel::Informational);
 
         }
-        else {
+        else {*/
             //write some settings in new file otherwise the string "null" is written if all settigs are empty
             enable_rpc = settings.setBool("RpcEnabled", true);
             settings.setString("LocalHostIp", "127.0.0.1");
+            
             Settings rosflight_child;
             rosflight_child.setInt("RemoteControlID", 0);
             settings.setChild("RosFlight", rosflight_child);
-
-            settings.saveJSonFile(settings_filename);
+            fpv_vehicle_name = "RosFlight";
+            //settings.saveJSonFile(settings_filename);
             std::string msg = "Settings file " + settings_filename + " is created.";
             UAirBlueprintLib::LogMessage(FString(msg.c_str()), TEXT("See docs at https://git.io/v9mYY"), LogDebugLevel::Informational);
-        }
+        //}
     }
     catch (std::exception ex) {
         UAirBlueprintLib::LogMessage(FString("Error loading settings from ~/Documents/AirSim/settings.json"), TEXT(""), LogDebugLevel::Failure, 30);
